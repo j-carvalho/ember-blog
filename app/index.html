@@ -16,18 +16,57 @@
         <!-- endbuild -->
     </head>
     <body>
-        <div class="container">
-            <div class="hero-unit">
-                <h1>'Allo, 'Allo!</h1>
-                <p>You now have</p>
-                <ul>
-                    <li>HTML5 Boilerplate</li>
-                    <li>Twitter Bootstrap</li>
-                </ul>
-                <p>installed.</p>
-                <h3>Enjoy coding! - Yeoman</h3>
+
+        <script type="text/x-handlebars" data-template-name="application">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    {{#linkTo 'index' class="brand"}}Ember Blog{{/linkTo}}
+                        <ul class="nav">
+                            <li>{{#linkTo 'index'}}Home{{/linkTo}}</li>
+                            <li>{{#linkTo 'posts'}}Posts{{/linkTo}}</li>
+                            <li>{{#linkTo 'about'}}About{{/linkTo}}</li>
+                        </ul>
+                </div>
             </div>
-        </div>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    {{outlet}}
+                </div>
+            </div>
+
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="index">
+            <h1> Welcome to ember blog! </h1>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="posts">
+            <h1> Welcome to Posts! </h1>
+            <div class="span9">
+                <div class="row-fluid">
+                    {{#each post in controller}}
+                        <div class="span4">
+                            <h2>{{post.title}}</h2>
+                            {{post.content}}
+                            <p>{{#linkTo 'post' post class="btn"}}More Detail &raquo;{{/linkTo}}</p>
+                        </div>
+                    {{else}}
+                        <h3>Please create a post!</h3>
+                    {{/each}}
+                </div>
+            </div>
+
+            {{outlet}}
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="post">
+            <h2>{{title}}</h2>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="about">
+            <h1> Welcome to About! </h1>
+        </script>
 
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -43,27 +82,15 @@
 
         <!-- build:js scripts/main.js -->
         <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/handlebars/handlebars.js"></script>
+        <script src="bower_components/ember.js/ember.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/coffee.js -->
-        <script src="scripts/hello.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/sass-bootstrap/js/bootstrap-affix.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-alert.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-modal.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-transition.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-button.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-popover.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/sass-bootstrap/js/bootstrap-tab.js"></script>
         <!-- endbuild -->
 </body>
 </html>

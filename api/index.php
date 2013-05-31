@@ -17,6 +17,11 @@ $app = new \Slim\Slim(array(
     'debug' => true
 ));
 
+$res = $app->response();
+$res->header('Access-Control-Allow-Origin', '*');
+$res->header("Content-Type: application/json");
+$res->header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS");
+
 $app->get('/posts', 'getAllPosts');
 $app->get('/posts/:id', 'getPost');
 $app->post('/posts', 'createPost');
