@@ -1,0 +1,13 @@
+{
+  "name": "ember",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "~3.2.5",
+    "sequelize": "~1.7.0-alpha2",
+    "mysql": "~2.0.0-alpha8"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}

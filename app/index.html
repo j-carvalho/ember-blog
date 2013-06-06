@@ -46,11 +46,7 @@
             <div class="span9">
                 <div class="row-fluid">
                     {{#each post in controller}}
-                        <div class="span4">
-                            <h2>{{post.title}}</h2>
-                            {{post.content}}
-                            <p>{{#linkTo 'post' post class="btn"}}More Detail &raquo;{{/linkTo}}</p>
-                        </div>
+                        {{ partial "post"}}
                     {{else}}
                         <h3>Please create a post!</h3>
                     {{/each}}
@@ -60,8 +56,74 @@
             {{outlet}}
         </script>
 
+        <script type="text/x-handlebars" data-template-name="_post">
+            <div class="span4">
+                <h2>{{post.title}}</h2>
+                {{post.text}}
+                <p>{{#linkTo 'post' post class="btn"}}More Detail &raquo;{{/linkTo}}</p>
+            </div>
+        </script>
+
         <script type="text/x-handlebars" data-template-name="post">
             <h2>{{title}}</h2>
+            <p>{{text}}</p>
+            <p>{{updated_at}}</p>
+
+            {{partial 'messages'}}
+
+            {{outlet}}
+
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="message">
+            <h3>Create new message</h3>
+            {{view Ember.TextField valueBinding='text'}}
+            <a {{action saveMessage model}} class="btn">Create</a>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="messages">
+
+            <table>
+                {{#each controller}}
+                    {{#if loading}}
+                        <tr>
+                            <td>Loading!</td>
+                        </tr>
+                    {{else}}
+                        {{#if editable}}
+                            <tr>
+                                <td>{{ view Ember.TextField valueBinding="text" }}</td>
+                                <td><button {{action updateMessage this}} class="btn">Save</button></td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>{{text}}</td>
+                                <td>{{updated_at}}</td>
+                                <td><button {{action editMessage this}} class="btn">Edit</button></td>
+                                <td><button {{action deleteMessage this}} class="btn">Delete</button></td>
+                            </tr>
+                        {{/if}}
+                    {{/if}}
+                {{else}}
+                    <tr>
+                        <td>Please create new messages!</td>
+                    </tr>
+                {{/each}}
+            </ul>
+
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="_messages">
+            <h3>Messages</h3>
+
+            {{ render 'message' }}
+
+            {{#if messages}}
+                {{ render "messages"}}
+            {{else}}
+                <p>Loading Messages!</p>
+            {{/if}}
+
         </script>
 
         <script type="text/x-handlebars" data-template-name="about">
